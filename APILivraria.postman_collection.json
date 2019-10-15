@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "91f734fb-e7ff-4458-b041-de0380ea1cfe",
+		"name": "APILivraria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listar livros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/livros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"livros"
+					]
+				},
+				"description": "Lista todos os livros contidos na tabela."
+			},
+			"response": []
+		},
+		{
+			"name": "Retorna livro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Retorna o livro de acordo com o id enviado, nesse caso o id = 2."
+			},
+			"response": []
+		},
+		{
+			"name": "Adiciona um livro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Eu sou a lenda\",\r\n    \"autor\": \"Autor\",\r\n    \"dataPublicacao\": \"2010-02-16\",\r\n    \"edicao\": \"1\",\r\n    \"codigoISBN\": \"12019-1204201-9310\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/livro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"livro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta um livro",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"titulo\": \"Eu sou a lenda\",\r\n    \"autor\": \"Autor\",\r\n    \"dataPublicacao\": \"2010-02-15\",\r\n    \"edicao\": \"1\",\r\n    \"codigoISBN\": \"12019-1204201-9310\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/livro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"livro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta um livro pelo id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/livro/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"livro",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza um livro",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 5,\r\n    \"titulo\": \"Eu sou a lenda\",\r\n    \"autor\": \"Autor\",\r\n    \"dataPublicacao\": \"2010-02-15\",\r\n    \"edicao\": \"1\",\r\n    \"codigoISBN\": \"12019-1204201-9310\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/livro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"livro"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
