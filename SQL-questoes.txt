@@ -1,0 +1,42 @@
+-- MODELO DA BASE, QUESTÃO 1 --
+create table atores(
+	identificacao serial primary key,
+	nome varchar(120) not null,
+	nascimento date not null,
+	observacoes varchar(250)
+);
+
+create table filmes(
+	identificacao serial primary key,
+	titulo varchar(120) not null,
+	lancamento date not null,
+	genero char(20) not null
+);
+
+create table filmes_atores(
+	id_ator int references atores(identificacao),
+	id_filme int references filmes(identificacao)
+);
+
+-- ------------------------------------------------
+
+-- INSERTS PARA DEMONSTRAÇÃO --
+insert into atores (nome, nascimento)
+values ('Kaenu Reeves', '02-09-1964'),
+		('Daniel Radcliffe', '23-07-1989');
+		
+insert into filmes (titulo, lancamento, genero)
+values('John Wick - De Volta Ao Jogo', '27-11-2014', 'Ação'),
+		('Harry Potter e a Pedra Filosofal', '23-11-2001', 'Fantasia'),
+		('John Wick 2: Um Novo Dia Para Matar', '16--02-2017', 'Ação');
+		
+insert into filmes_atores(id_ator, id_filme)
+values(1, 1), (1, 3), (2, 2);
+
+-- ------------------------------------------------
+
+-- SELECT DOS FILMES QUE O KAENU REEVES PARTICIPOU QUESTÃO 2 --
+select f.titulo as Título, f.lancamento as Lançamento, f.genero as Gênero 
+from filmes f, atores ac, filmes_atores fa
+where f.identificacao = fa.id_filme and ac.identificacao = fa.id_ator and ac.nome = 'Kaenu Reeves';
+-- ------------------------------------------------
