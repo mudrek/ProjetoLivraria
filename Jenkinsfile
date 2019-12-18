@@ -7,11 +7,6 @@ pipeline {
         }
     }
 
-    agent any
-    tools {
-        maven 'mvn'
-    }
-
     environment {
         workspace = pwd()
         branch = 'develop-docker'
