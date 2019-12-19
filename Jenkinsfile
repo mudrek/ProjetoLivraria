@@ -26,7 +26,7 @@ pipeline {
 
         stage('Pull image') {
             steps {
-                sh "docker image prune -f"
+                //sh "docker image prune -f"
                 sh "docker build -t apirest ."
             }
         }
