@@ -39,7 +39,7 @@ pipeline {
 
         stage('Run container') {
             steps {
-                sh "docker run -d --name apirest --restart always --volumes-from jenkins apirest"
+                sh "docker run -d --name apirest --restart always apirest"
             }
         }
 
