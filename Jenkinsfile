@@ -39,6 +39,7 @@ pipeline {
 
         stage('Run container') {
             steps {
+                sh "sudo service docker start"
                 sh "sudo docker run -d --name apirest --restart always apirest"
             }
         }
