@@ -20,16 +20,16 @@ pipeline {
 
         stage('Build project') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean install -DskipTests=true'
             }
         }
 
-/*         stage('Pull image') {
+        stage('Pull image') {
             steps {
-                //sh "docker image prune -f"
-                //sh "docker build -t apirest ."
+                sh "docker image prune -f"
+                sh "docker build -t apirest ."
             }
-        } */
+        }
 
         stage('Remove old') {
             steps {
