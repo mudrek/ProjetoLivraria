@@ -33,7 +33,7 @@ pipeline {
 
         stage('Remove old') {
             steps {
-                sh "sudo docker stop apirest || true && docker rm apirest || true"
+                sh "docker stop apirest || true && docker rm apirest || true"
             }
         }
 
