@@ -37,13 +37,6 @@ pipeline {
             }
         }
 
-        stage('Pull image') {
-            steps {
-                sh "docker image prune -f"
-                sh "docker build -t pasto ."
-            }
-        }
-
         stage('Run container') {
             steps {
                 sh "docker run -d --name apirest --restart always apirest"
