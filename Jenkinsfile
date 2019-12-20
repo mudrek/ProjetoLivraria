@@ -33,13 +33,13 @@ pipeline {
 
         stage('Remove old') {
             steps {
-                sh "docker stop apirest || true && docker rm apirest || true"
+                sh "sudo docker stop apirest || true && docker rm apirest || true"
             }
         }
 
         stage('Run container') {
             steps {
-                sh "docker run -d --name apirest --restart always apirest"
+                sh "sudo docker run -d --name apirest --restart always apirest"
             }
         }
 
