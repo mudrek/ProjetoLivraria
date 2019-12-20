@@ -39,6 +39,7 @@ pipeline {
 
         stage('Run container') {
             steps {
+                sh "docker build -t apirest ."
                 sh "docker run -d --name apirest --restart always apirest"
             }
         }
