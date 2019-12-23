@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build project') {
             steps {
-                sh 'mvn clean install -DskipTests=true'
+                sh 'mvn clean install'
             }
         }
 
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Run container') {
             steps {
-                sh "docker run -d --name apirest -p 8181:8080 --restart always apirest"
+                sh "docker run -d --name apirest -p 8080:8080 --restart always apirest"
             }
         }
 
