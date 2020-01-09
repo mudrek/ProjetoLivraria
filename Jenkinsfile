@@ -14,20 +14,57 @@ pipeline {
     stages {
         stage('Checkout git') {
             steps {
-                git branch: branch, credentialsId: 'jenkins', url: url
+                script{
+                    try {
+                        git branch:branch, credentialsId:'jenkins', url:url
+                                lastCommit = sh(script:'git log -1 --pretty=%B', returnStdout:true).trim()
+                    } catch (Exception e) {
+                        currentBuild.result = "FAILURE";
+                        lastCommit = sh(script:'git log -1 --pretty=%B', returnStdout:true).trim()
+                        telegramSend (message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao realizar checkout git.' +
+                                ' \n \t COMMIT MESSAGE: ' + lastCommit + '\n \t ERROR MESSAGE: ' + e +
+                                ' \n \t BUILD URL: (' + env.BUILD_URL + ') \n \t STATUS: OFFLINE ', chatId: -323078175)
+
+                        throw e;
+                    }
+                }
             }
         }
 
         stage('Build project') {
             steps {
-                sh 'mvn clean install -DskipTests=true'
+                script{
+                    try {
+                        sh 'mvn clean install -DskipTests=true'
+                    } catch (Exception e) {
+                        currentBuild.result = "FAILURE";
+                        lastCommit = sh(script:'git log -1 --pretty=%B', returnStdout:true).trim()
+                        telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao realizar build do projeto.' +
+                                ' \n \t COMMIT MESSAGE: ' + lastCommit + '\n \t ERROR MESSAGE: ' + e +
+                                ' \n \t BUILD URL: (' + env.BUILD_URL + ') \n \t STATUS: OFFLINE ', chatId: -323078175)
+
+                        throw e;
+                    }
+                }
             }
         }
 
         stage('Pull image') {
             steps {
-                sh "docker image prune -f"
-                sh "docker build -t apirest ."
+                script{
+                    try {
+                        sh "docker image prune -f"
+                        sh "docker build -t apirest ."
+                    } catch (Exception e) {
+                        currentBuild.result = "FAILURE";
+                        lastCommit = sh(script:'git log -1 --pretty=%B', returnStdout:true).trim()
+                        telegramSend (message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao realizar pull da imagem.' +
+                                ' \n \t COMMIT MESSAGE: ' + lastCommit + '\n \t ERROR MESSAGE: ' + e +
+                                ' \n \t BUILD URL: (' + env.BUILD_URL + ') \n \t STATUS: OFFLINE ', chatId: -323078175)
+
+                        throw e;
+                    }
+                }
             }
         }
 
@@ -39,7 +76,22 @@ pipeline {
 
         stage('Run container') {
             steps {
-                sh "docker run -d --name apirest --restart always -p 8080:8080 --network livrariainfra_database apirest"
+                script {
+                    try {
+                        sh "docker run -d --name apirest --restart always -p 8080:8080 --network livrariainfra_database apirest"
+                        lastCommit = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                        telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Build realizado com sucesso' +
+                        ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: ONLINE \n \t', chatId: -323078175)
+                    } catch (Exception e) {
+                        currentBuild.result = "FAILURE";
+                        lastCommit = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                        telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao realizar build' +
+                        ' \n \t COMMIT MESSAGE: ' + lastCommit + '\n \t ERROR MESSAGE: ' + e +
+                        ' \n \t BUILD URL: (' + env.BUILD_URL + ') \n \t STATUS: OFFLINE ', chatId: -323078175)
+
+                        throw e;
+                    }
+                }
             }
         }
 
