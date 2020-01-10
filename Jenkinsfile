@@ -42,28 +42,27 @@ pipeline {
         stage('Run container') {
             steps {
                 script {
-                    sh "docker run -d --name apirest --restart always -p 8080:8080 --network livrariainfra_database apirest"
+                    sh "docker runn -d --name apirest --restart always -p 8080:8080 --network livrariainfra_database apirest"
                     currentBuild.result = "SUCCESS";
                 }
             }
-            post {
-                success {
-                    script {
-                        echo "success"
-                        telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Build realizado com sucesso' +
-                            ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: ONLINE \n \t', chatId: chatId)
-                    }
-                }
-                failure {
-                    script {
-                        echo "failure"
-                        telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao fazer build' +
-                            ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: OFFLINE \n \t', chatId: chatId)
-                    }
+        }
+    }
+    post {
+        success {
+            script {
+                echo "success"
+                telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Build realizado com sucesso' +
+                    ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: ONLINE \n \t', chatId: chatId)
+            }
+        }
+        failure {
+            script {
+                echo "failure"
+                    telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao fazer build' +
+                        ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: OFFLINE \n \t', chatId: chatId)
                 }
             }
         }
-
-    }
 
 }
