@@ -61,8 +61,8 @@ pipeline {
                 echo "failure"
                     telegramSend(message: '#LIVRARIA: \n \t BRANCH: ' + branch + ' \n \t MESSAGE: Erro ao fazer build' +
                         ' \n \t COMMIT MESSAGE: ' + lastCommit + ' \n \t STATUS: OFFLINE \n \t', chatId: chatId)
-                }
             }
         }
+    }
 
 }
