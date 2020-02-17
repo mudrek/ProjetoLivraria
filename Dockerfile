@@ -26,7 +26,7 @@ RUN addgroup --gid $GROUP_GID --group $GROUP_NAME \
     && adduser --uid $USER_UID --disabled-login --system --home $USER_HOME --shell /sbin/nologin --gid $GROUP_GID $USER_NAME
 
 # Add Application
-COPY --from=0 --chown=1000:1000 app/target/api-0.0.1.jar /app/dandelin-server.jar
+COPY --from=0 --chown=1000:1000 apirest/target/api-0.0.1.jar /apirest/apires-server.jar
 
 # User
 USER $USER_NAME
