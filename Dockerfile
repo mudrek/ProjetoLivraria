@@ -9,11 +9,11 @@ FROM openjdk:13-jdk-slim
 MAINTAINER Ganex <suporte@ganex.com.br>
 
 # Arguments
-ARG USER_NAME="app"
+ARG USER_NAME="ProjetoLivraria"
 ARG USER_UID="1000"
-ARG GROUP_NAME="app"
+ARG GROUP_NAME="ProjetoLivraria"
 ARG GROUP_GID="1000"
-ARG USER_HOME="/app/"
+ARG USER_HOME="/ProjetoLivraria/"
 
 # Environment variables
 ENV LANG="pt_BR.UTF-8" \
@@ -26,7 +26,7 @@ RUN addgroup --gid $GROUP_GID --group $GROUP_NAME \
     && adduser --uid $USER_UID --disabled-login --system --home $USER_HOME --shell /sbin/nologin --gid $GROUP_GID $USER_NAME
 
 # Add Application
-COPY --from=0 --chown=1000:1000 apirest/target/api-0.0.1.jar /apirest/apires-server.jar
+COPY --from=0 --chown=1000:1000 ProjetoLivraria/target/api-0.0.1.jar /ProjetoLivraria/apires-server.jar
 
 # User
 USER $USER_NAME
@@ -35,4 +35,4 @@ USER $USER_NAME
 EXPOSE 8080
 
 # Set the default command to run on boot
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/dandelin-server.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/ProjetoLivraria/dandelin-server.jar"]
